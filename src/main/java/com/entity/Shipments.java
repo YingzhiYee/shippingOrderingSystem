@@ -24,4 +24,6 @@ public class Shipments {
 
     private String estimatedcost; // 预估支付金额
 
+
+
 }

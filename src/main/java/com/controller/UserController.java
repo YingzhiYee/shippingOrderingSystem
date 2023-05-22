@@ -4,6 +4,7 @@ import com.service.UserService;
 import com.vo.R;
 import com.vo.param.*;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.support.SimpleTriggerContext;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,8 @@ import java.security.PublicKey;
 @AllArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     // 登陆--post保存
     @PostMapping("login")

@@ -5,23 +5,10 @@ import com.entity.User;
 import com.vo.R;
 import com.vo.param.*;
 
-//@Service
-//public class UserService {
-//
-//    @Autowired
-//    private Usermapper usermapper=(Usermapper)  ApplicationContextHelperUtil.getBean(Usermapper.class);
-//    public boolean Login(user user1){
-//        QueryWrapper<user> userQueryWrapper = new QueryWrapper<>();
-//        userQueryWrapper.eq("email",user1.getEmail()).eq("password",user1.getPassword());
-//        return usermapper.equals(userQueryWrapper);
-//    }
-//}
-
 public interface UserService extends IService<User> {
     /**
      * 1.登陆
-     *
-     * @param loginParam（token,用户名,密码）
+     * @param loginParam（token,电话号,密码）
      * @return
      */
     R login(LoginParam loginParam);

@@ -26,34 +26,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     // 登陆
     @Override
     public R login(LoginParam loginParam){
-//        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
-//            queryWrapper.eq("username",loginParam.getUsername()).eq("password",loginParam.getPassword());
-//            User user = userMapper.selectOne(queryWrapper);
-//            R r= new R();
-//            if (user != null && user.getPassword().equals(loginParam.getPassword())) {
-//                QueryWrapper<Warehouse> queryWrapper1=new QueryWrapper<>();
-//                System.out.println(user.getUsername());
-//                queryWrapper1.eq("username",user.getUsername());
-//                List<Warehouse> Ware = wareMapper.selectList(queryWrapper1);//查询用户是否创建过仓库System.out.println(wareMapper.exists(queryWrapper1));
-//               String token= user.getToken(user);
-//               r.data("user_id","0");
-//               r.data("token",token);
-//               r.data("status_code",true);
-//                System.out.println(Ware.size());
-//                if(!Ware.isEmpty()) {
-//                    r.data("warehouse",true);//旧用户
-//                } else {
-//                    r.data("warehouse",false);//新用户
-//                }
-//                return r;
-//            } else {
-//                r.data("warehouse",false);
-//                r.data("status_code",false);
-//                r.data("user_id",0);
-//                r.data("token","");
-//                return r;
-//            }
-        return R.error();
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("phone",loginParam.getPhone()).eq("password",loginParam.getPassword());
+        User user = userMapper.selectOne(queryWrapper);
+        R r = new R();
+        if (user != null && user.getPassword().equals(loginParam.getPassword())){
+            String token= user.getToken(user);
+            r.data("token",token);
+            r.data("errorCode","200");
+            r.data("errorMessage","登陆成功");
+        } else {
+            r.data("token","0");
+            r.data("errorCode","404");
+            r.data("errorMessage","登陆失败");
+        }
+        return r;
     }
 
     // 注册

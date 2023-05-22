@@ -23,7 +23,9 @@ public class Parcel {
 
     private double weight;
 
-    private String issuranceornot; // 报价与否
+    private String issuranceornot; // 保价与否
+
+    private Boolean sendoutornot; // 已经寄出与否，1表示是，是则不能进行取消寄件操作
 
     private String notes; // 备注
 }

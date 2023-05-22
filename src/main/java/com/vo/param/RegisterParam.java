@@ -3,7 +3,7 @@ import lombok.Getter;
 
 /**
  * FileName: registerParam
- * Date: 2023/04/03
+ * Date: 2023/05/22
  * Description: 该类用于封装注册表单提交的数据
  */
 @Getter
