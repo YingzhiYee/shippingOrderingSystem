@@ -8,11 +8,11 @@ import lombok.Getter;
 @Getter
 public class CheckShipmentParam {
 
-    private String shipmentCode; // 订单号
+    private String carrier; // 订单号
 
 
-    public CheckShipmentParam(String shipmentCode){
-        this.shipmentCode = shipmentCode;
+    public CheckShipmentParam(String carrier){
+        this.carrier = carrier;
     }
 
 }

@@ -28,4 +28,6 @@ public class Parcel {
     private Boolean sendoutornot; // 已经寄出与否，1表示是，是则不能进行取消寄件操作
 
     private String notes; // 备注
+
+    private String carrier; // 承运商
 }

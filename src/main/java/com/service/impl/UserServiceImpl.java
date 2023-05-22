@@ -26,7 +26,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     public R login(LoginParam loginParam){
         R r = new R();
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("phone",loginParam.getPhone()).eq("password",loginParam.getPassword());
+        queryWrapper.eq("phone",loginParam.getPhone());
         User user = userMapper.selectOne(queryWrapper);
         if (user != null && user.getPassword().equals(loginParam.getPassword())){
             String token= user.getToken(user);
@@ -53,8 +53,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         {
             User user=new User();
             user.setUsernickname(registerParam.getUserNickName());
-            user.setUsertruename(registerParam.getUserTrueName());
-            user.setUseridnumber(registerParam.getUserIDNumber());
+//            user.setUsertruename(registerParam.getUserTrueName());
+//            user.setUseridnumber(registerParam.getUserIDNumber());
             user.setPhone(registerParam.getPhone());
             user.setPassword(registerParam.getPassword());
             userMapper.insert(user);
