@@ -7,7 +7,6 @@ import com.service.UserService;
 import com.vo.R;
 import com.vo.param.*;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.List;
  * Date: 2023/05/22
  */
 @Service
-//@Transactional
 @AllArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService {
     private final UserMapper userMapper;
@@ -26,18 +24,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     // 登陆
     @Override
     public R login(LoginParam loginParam){
+        R r = new R();
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("phone",loginParam.getPhone()).eq("password",loginParam.getPassword());
         User user = userMapper.selectOne(queryWrapper);
-        R r = new R();
         if (user != null && user.getPassword().equals(loginParam.getPassword())){
             String token= user.getToken(user);
             r.data("token",token);
-            r.data("errorCode","200");
+            r.data("errorCode",true);
             r.data("errorMessage","登陆成功");
         } else {
             r.data("token","0");
-            r.data("errorCode","404");
+            r.data("errorCode",false);
             r.data("errorMessage","登陆失败");
         }
         return r;
@@ -47,23 +45,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     @Override
     public R register(RegisterParam registerParam) {
         R r= new R();
-//        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
-//        queryWrapper.eq("username",registerParam.getUsername());
-//        boolean u = userMapper.exists(queryWrapper);
-//        System.out.println(u);
-//        if(!u)
-//        {
-//            User user=new User();
-//            user.setUsername(registerParam.getUsername());
-//            user.setPassword(registerParam.getPassword());
-//            userMapper.insert(user);
-//            r.data("status_code",true);
-//            return r;
-//        }
-//        else {
-//            r.data("status_code",false);
-//            return r;
-//        }
-        return R.error();
+        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("phone",registerParam.getPhone());
+        boolean u = userMapper.exists(queryWrapper);
+        System.out.println(u);
+        if(!u)
+        {
+            User user=new User();
+            user.setUsernickname(registerParam.getUserNickName());
+            user.setUsertruename(registerParam.getUserTrueName());
+            user.setUseridnumber(registerParam.getUserIDNumber());
+            user.setPhone(registerParam.getPhone());
+            user.setPassword(registerParam.getPassword());
+            userMapper.insert(user);
+            String token= user.getToken(user);
+            r.data("token",token);
+            r.data("errorCode",true);
+            r.data("errorMessage","注册成功");
+            return r;
+        }
+        else {
+            r.data("token","0");
+            r.data("errorCode",false);
+            r.data("errorMessage","注册失败");
+            return r;
+        }
     }
 }
